@@ -1,0 +1,33 @@
+function countingSort(arr)
+    // Find the maximum value in the array
+    maxVal = max(arr);
+
+    // Initialize count array with zeros
+    count = zeros(1, maxVal + 1);
+
+    // Count occurrences of each element in the input array
+    for i = 1:length(arr)
+        count(arr(i) + 1) = count(arr(i) + 1) + 1;
+    end
+
+    // Update count array to store cumulative counts
+    for i = 2:(maxVal + 1)
+        count(i) = count(i) + count(i - 1);
+    end
+
+    // Initialize output array
+    output = zeros(1, length(arr));
+
+    // Build the output array using the count array
+    for i = length(arr):-1:1
+        output(count(arr(i) + 1)) = arr(i);
+        count(arr(i) + 1) = count(arr(i) + 1) - 1;
+    end
+
+    // Display the sorted array
+    disp(output);
+endfunction
+
+// Example usage
+arr = [4, 2, 2, 8, 3, 3, 1];
+countingSort(arr);
